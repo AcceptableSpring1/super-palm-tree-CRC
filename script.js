@@ -1,16 +1,12 @@
 'strict'
 
-//This below is fetching the my AZ Func everytime someone loads into website.
-
-window.addEventListener('load', function(){
-
-    fetch('crc-func-app.azurewebsites.net',{
-
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({count: 1 })
-
-})
-})
+window.addEventListener('load', () => {
+  fetch('https://crc-func-btemhqemegc5ekd5.westus2-01.azurewebsites.net/api/visitorcounter', {
+    method: 'POST'
+  })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('visits').textContent = data.visits;
+    })
+    .catch(err => console.error('Visitor counter error:', err));
+});
